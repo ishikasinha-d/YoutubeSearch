@@ -17,7 +17,7 @@ def index():
         'key': os.getenv('API_KEY'),
         'q': 'Cricket',  
         'part': 'snippet',
-        'maxresults': 9
+        'maxresults': 30
     }
     r= requests.get(search_url, params=search_params)
 
@@ -29,7 +29,7 @@ def index():
             'key' : os.getenv('API_KEY'),
             'id' : ','.join(video_ids),
             'part' : 'snippet,contentDetails',
-            'maxResults' : 9
+            'maxResults' : 30
         }
 
     videos=[]
@@ -40,6 +40,7 @@ def index():
             'id' : result['id'],
             'url' : f'https://www.youtube.com/watch?v={ result["id"] }',
             'thumbnail' : result['snippet']['thumbnails']['high']['url'],
+            'publishedAt': result['snippet']['publishedAt'],
             'duration' : int(parse_duration(result['contentDetails']['duration']).total_seconds() // 60),
             'title' : result['snippet']['title'],
         }
@@ -47,4 +48,7 @@ def index():
 
     video_data_collection= mongo.db.video_data
     video_data_collection.insert(videos)
-    return render_template('index.html')
+    video_coll= video_data_collection.find()
+
+
+    return render_template('index.html', videos=video_coll)
