@@ -1,5 +1,3 @@
-# YoutubeSearch
-
 # About the Project
 An API to fetch latest videos sorted in reverse chronological order of their publishing date-time from YouTube for a given tag/search query in a paginated response.
 
@@ -34,8 +32,14 @@ An API to fetch latest videos sorted in reverse chronological order of their pub
   3. Create a user and collection
   4. Click on connect to get the string. Put your username, user's password and database in the connection string.
 
+- create .flaskenv file and write the following in it
+  
+  `FLASK_ENV=development`
+  
+  `FLASK_APP=flask_youtube`
+  
 - Run the flask app using: 
 
-`flask run`
+  `flask run`
 
   
